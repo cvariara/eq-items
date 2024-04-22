@@ -1,11 +1,13 @@
 {
-  "name": "backend",
+  "name": "eq-items",
   "version": "1.0.0",
   "description": "A Node.js backend server for interacting with MongoDB",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "Your Name",
