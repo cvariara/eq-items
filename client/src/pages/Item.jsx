@@ -10,7 +10,7 @@ const Item = () => {
     // Fetch items from backend API when component mounts
     async function fetchItem() {
       try {
-        const response = await fetch(`http://localhost:4000/api/items/${id}`);
+        const response = await fetch(`/api/items/${id}`);
         if (response.ok) {
           const data = await response.json();
           setItem(data);
