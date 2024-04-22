@@ -5,7 +5,13 @@ const Item = require('../models/itemModel');
 // Route to fetch all items
 router.get('/', async (req, res) => {
   try {
-    const items = await Item.find();
+    const searchTerm = req.query.searchTerm || '';
+    const limit = 10;
+
+    const items = await Item.find({
+      name: { $regex: searchTerm, $options: 'i'}
+    }).limit(limit);
+    
     res.json(items);
   } catch (error) {
     console.error('Error fetching items:', error);

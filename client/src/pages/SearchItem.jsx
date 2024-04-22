@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SearchItem = () => {
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -10,7 +10,7 @@ const SearchItem = () => {
     // Fetch items from backend API when component mounts
     async function fetchItems() {
       try {
-        const response = await fetch('/api/items');
+        const response = await fetch(`/api/items?searchTerm=${encodeURIComponent(searchTerm)}`);
         if (response.ok) {
           const data = await response.json();
           setItems(data);
@@ -24,12 +24,12 @@ const SearchItem = () => {
     }
 
     fetchItems();
-  }, []);
+  }, [searchTerm]);
 
   // Filter items based on search term
-  const filteredItems = items ? items.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ).slice(0, 10) : [];
+  // const filteredItems = items ? items.filter(item =>
+  //   item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // ).slice(0, 10) : [];
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -56,8 +56,8 @@ const SearchItem = () => {
         <p className="message">Search up items for their information</p>
       ) : (
         <div className="item-list">
-          {filteredItems.length > 0 ? (
-            filteredItems.map(item => (
+          {items.length > 0 ? (
+            items.map(item => (
               <div key={item.id} className="item">
                 <Link to={`/item/${item.id}`}>
                   <img src={item.information.imgsrc} alt={item.name} />
