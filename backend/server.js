@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config(); // Load environment variables from .env file
+const dotenv = require('dotenv');
 const cors = require('cors');
 const http = require('http');
 const path = require('path');
@@ -10,6 +10,9 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 4000;
 
 const itemsRoutes = require('./routes/items');
+const ___dirname = path.resolve();
+
+dotenv.config();
 
 // Middleware
 app.use(cors());
@@ -22,10 +25,10 @@ app.use((req, res, next) => {
 // Define routes
 app.use('/api/items', itemsRoutes);
 
-app.use(express.static(path.join(__dirname, "client/dist")));
+app.use(express.static(path.join(___dirname, "client/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(___dirname, "client", "dist", "index.html"));
 })
 
 // Connect to MongoDB using Mongoose
