@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Route to fetch a subset of items (e.g., first 30 items)
+// Route to fetch a subset of items (30 random items)
 router.get('/subset', async (req, res) => {
   try {
     const items = await Item.aggregate([ { $sample: { size: 30 } } ]);
