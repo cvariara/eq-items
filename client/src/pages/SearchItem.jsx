@@ -26,11 +26,6 @@ const SearchItem = () => {
     fetchItems();
   }, [searchTerm]);
 
-  // Filter items based on search term
-  // const filteredItems = items ? items.filter(item =>
-  //   item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  // ).slice(0, 10) : [];
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
